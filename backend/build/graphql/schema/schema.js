@@ -16,8 +16,40 @@ type User {
   updatedAt: String!
 }
 
+type Course {
+  _id: ID!
+  title: String!
+  description: String!
+  instructor: User!
+  ratingAverage: Int!
+  ratingQuantity: Int!
+  price: Int!
+  category: String!
+  subCategory: String!
+  level: String!
+  language: String!
+  whatYouWillLearn: [String!]!
+  requirements: [String!]!
+  targetAudience: [String!]!
+  isPublished: Boolean!
+  isFree: Boolean!
+  isApproved: Boolean!
+  isRejected: Boolean!
+  isFeatured: Boolean!
+  isTrending: Boolean!
+  isBestSeller: Boolean!
+  coverImage: String!
+  previewVideo: String!
+  students:[String!]!
+  createdAt: String!
+  updatedAt: String!
+}
+
 type Query {
-  hello: String,
   users:[User],
+  courses:[Course],
+  course(id:ID!):Course,
+  # sections:[Section],
+  # lectures:[Lecture],
 }
   `;

@@ -4,7 +4,8 @@ import {startStandaloneServer} from "@apollo/server/standalone";
 import { schema } from "./graphql/schema/schema";
 import dotenv from 'dotenv';
 import { connectDB } from "./database/database";
-import { User } from "./models/userModel";
+import { getAllUsers, getUserById } from "./controllers/user";
+import { getAllCourses, getCourseById } from "./controllers/course";
 
 dotenv.config({path:'./.env'}); // Load environment variables from .env file
 const PORT = Number(process.env.PORT) || 8000;
@@ -15,11 +16,14 @@ const server = new ApolloServer({
   typeDefs: schema,
   resolvers: {
     Query:{
-      hello: () => `Hey there!, I am graphql server running on port ${PORT}`,
-      users: async () => {
-        const users = await User.find();
-        console.log(users);
-        return users;
+      users: getAllUsers,
+      courses: getAllCourses,
+      course: getCourseById,
+      // lectures:
+    },
+    Course:{
+      instructor: async (course) => {
+        return await getUserById(course.instructor);
       }
     }
   },

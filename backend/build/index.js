@@ -17,7 +17,8 @@ const standalone_1 = require("@apollo/server/standalone");
 const schema_1 = require("./graphql/schema/schema");
 const dotenv_1 = __importDefault(require("dotenv"));
 const database_1 = require("./database/database");
-const userModel_1 = require("./models/userModel");
+const user_1 = require("./controllers/user");
+const course_1 = require("./controllers/course");
 dotenv_1.default.config({ path: './.env' }); // Load environment variables from .env file
 const PORT = Number(process.env.PORT) || 8000;
 const mongoURI = process.env.MONGO_URI || "mongodb://localhost:27017/"; // MongoDB URI
@@ -26,11 +27,13 @@ const server = new server_1.ApolloServer({
     typeDefs: schema_1.schema,
     resolvers: {
         Query: {
-            hello: () => `Hey there!, I am graphql server running on port ${PORT}`,
-            users: () => __awaiter(void 0, void 0, void 0, function* () {
-                const users = yield userModel_1.User.find();
-                console.log(users);
-                return users;
+            users: user_1.getAllUsers,
+            courses: course_1.getAllCourses,
+            course: course_1.getCourseById
+        },
+        Course: {
+            instructor: (course) => __awaiter(void 0, void 0, void 0, function* () {
+                return yield (0, user_1.getUserById)(course.instructor);
             })
         }
     },

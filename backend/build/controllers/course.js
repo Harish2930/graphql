@@ -9,15 +9,17 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getUserById = exports.getAllUsers = void 0;
-const userModel_js_1 = require("../models/userModel.js");
-const getAllUsers = () => __awaiter(void 0, void 0, void 0, function* () {
-    const users = yield userModel_js_1.User.find();
-    return users;
+exports.getCourseById = exports.getAllCourses = void 0;
+const courseModel_js_1 = require("../models/courseModel.js");
+const getAllCourses = () => __awaiter(void 0, void 0, void 0, function* () {
+    const courses = yield courseModel_js_1.Course.find();
+    return courses;
 });
-exports.getAllUsers = getAllUsers;
-const getUserById = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield userModel_js_1.User.findById(id);
-    return user;
+exports.getAllCourses = getAllCourses;
+const getCourseById = (parent, arg) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log(arg.id);
+    const course = yield courseModel_js_1.Course.findById(arg.id);
+    console.log(course);
+    return course;
 });
-exports.getUserById = getUserById;
+exports.getCourseById = getCourseById;
